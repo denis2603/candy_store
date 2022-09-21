@@ -8,3 +8,5 @@ else:
 
 VK_KEY = os.getenv('VK_KEY')
 ID_VK_GROUP = os.getenv('ID_VK_GROUP')
+
+VER_VK_API = '5.131'
