@@ -27,6 +27,14 @@ class BotCandy(VkApiGroup):
         self._keyboard_back = keyboard_back.get_keyboard()
         del keyboard_back, keyboard_menu
 
+    def event_handling(self, event: VkBotEventType):
+
+        if event.type is VkBotEventType.MESSAGE_NEW and event.message.text in self._categories:
+            category = Categories.objects.get(title=event.message.text)
+            self.send_product_from_categories(event, category)
+        else:
+            self.send_menu(event)
+
     def add_foto_to_vk(self, path_to_foto: str) -> str:
         """
         Загрузка фото на сервер VK и получение id загруженного фото
@@ -43,7 +51,6 @@ class BotCandy(VkApiGroup):
         print(f'из send_menu {message = }, \n {type(message) = }')
 
         message_to_reply = f'Выберите категорию для просмотра товаров.'
-        # attachment = f'photo-{ID_VK_GROUP}_457239029'
 
         values = {
             'user_id': message.from_id,
@@ -80,6 +87,13 @@ class BotCandy(VkApiGroup):
             }
             self.method('messages.send', values=values)
 
+        values = {
+            'user_id': user_id,
+            'random_id': get_random_id(),
+            'message': f'Это все товары в категории {category.title}',
+            'keyboard': self._keyboard_back,
+        }
+        self.method('messages.send', values=values)
 
 
 bot_candy = BotCandy(token=VK_KEY, api_version=VER_VK_API)
@@ -88,10 +102,9 @@ bot_candy = BotCandy(token=VK_KEY, api_version=VER_VK_API)
 def start(bot_vk_api: BotCandy):
 
     longpoll = VkBotLongPoll(bot_vk_api, ID_VK_GROUP, wait=10)
-
     for event in longpoll.listen():
-        # bot_candy.send_menu(event)
-        bot_candy.send_product_from_categories(event, Categories.objects.first())
+        bot_candy.event_handling(event)
+
 
 if __name__ == '__main__':
     start(bot_candy)
