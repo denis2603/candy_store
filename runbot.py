@@ -1,3 +1,4 @@
+from candy_store.wsgi import *
 import vk_bot.bot
 
 vk_bot.bot.start(vk_bot.bot.bot_candy)
