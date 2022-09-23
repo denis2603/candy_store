@@ -4,5 +4,3 @@
 /__pycache__/
 Dockerfile
 .env
-db.sqlite3
-/foto/*
