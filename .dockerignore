@@ -1,0 +1,8 @@
+/.venv/
+/.idea/
+/.git/
+/__pycache__/
+Dockerfile
+.env
+db.sqlite3
+/foto/*
