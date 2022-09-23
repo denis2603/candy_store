@@ -28,10 +28,13 @@ class ProductAdmin(admin.ModelAdmin):
 
     def preview(self, obj):
         return mark_safe(f'<img src="{obj.foto.url}" style="max-height: 200px;">')
-
     preview.short_description = 'фото'
 
     list_display = ('category', 'name', 'price')
+    list_display_links = ('name', )
+    list_editable = ('price', )
+    list_filter = ('category', )
+    search_fields = ('name', 'description', )
 
     fields = ('category', 'name', 'price', 'description', 'foto', 'id_foto_vk', 'preview')
 

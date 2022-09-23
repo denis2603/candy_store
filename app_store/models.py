@@ -1,8 +1,6 @@
 from django.db import models
-
-# import vk_bot.bot
 from pathlib import Path
-from candy_store.settings import BASE_DIR
+from django.conf import settings
 
 
 class Categories(models.Model):
@@ -34,14 +32,17 @@ class Product(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
+        """
+        Сохранение фото на сервер VK в случае его изменения
+        """
 
-        from vk_bot.bot import bot_candy
+        from vk_bot.bot import bot_candy  # чтобы избежать циклического импорта, импортируем здесь
 
         origin_foto_name = Product.objects.get(pk=self.pk).foto.name if self.pk else ''
 
         super().save(*args, **kwargs)
 
         if origin_foto_name != self.foto.name:
-            path_to_foto = Path(BASE_DIR) / self.foto.name
+            path_to_foto = Path(settings.BASE_DIR) / self.foto.name
             self.id_foto_vk = bot_candy.add_foto_to_vk(path_to_foto.as_posix())
             super().save(*args, **kwargs)

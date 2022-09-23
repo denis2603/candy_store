@@ -1,4 +1,4 @@
-from candy_store.wsgi import *
-import vk_bot.bot
+from candy_store.wsgi import *  # нужно для корректного запуска django
+from vk_bot.bot import bot_candy
 
-vk_bot.bot.start(vk_bot.bot.bot_candy)
+bot_candy.start()
