@@ -100,7 +100,7 @@ python manage.py runserver
 Выполнить команду
 
 ```bash
-python runbot
+python runbot.py
 ```
 Для остановки бота нажать `Ctrl + C`  
 При добавлении/изменении товаров необходимо перезапустить чат бота. 
