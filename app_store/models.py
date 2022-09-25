@@ -43,6 +43,6 @@ class Product(models.Model):
         super().save(*args, **kwargs)
 
         if origin_foto_name != self.foto.name:
-            path_to_foto = Path(settings.BASE_DIR) / self.foto.name
+            path_to_foto = Path(settings.MEDIA_ROOT) / self.foto.name
             self.id_foto_vk = bot_candy.add_foto_to_vk(path_to_foto.as_posix())
             super().save(*args, **kwargs)

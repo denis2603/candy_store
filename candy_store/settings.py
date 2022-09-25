@@ -28,7 +28,13 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+MY_HOST_IP = os.getenv('MY_HOST_IP')
+
+ALLOWED_HOSTS = [MY_HOST_IP, ]
+CSRF_TRUSTED_ORIGINS = [
+    f'http://{MY_HOST_IP}',
+    f'https://{MY_HOST_IP}',
+]
 
 
 # Application definition
@@ -127,4 +133,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_ROOT = BASE_DIR
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = 'media/'
