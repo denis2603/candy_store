@@ -38,6 +38,7 @@ class BotCandy(VkApiGroup):
         :param wait: время ожидания
         """
         longpoll = VkBotLongPoll(self, self.__id_vk_group, wait=wait)
+        print(f'Запущено прослушивание событий группы {self.__id_vk_group}')
         for event in longpoll.listen():
             if isinstance(event, VkBotMessageEvent):
                 self.message_event_handling(event)
