@@ -28,14 +28,10 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    '.containers.yandexcloud.net',
-    '127.0.0.1',
-]
+MY_HOST_IP = os.getenv('MY_HOST_IP')
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://*.containers.yandexcloud.net',
-]
+ALLOWED_HOSTS = [MY_HOST_IP, ]
+CSRF_TRUSTED_ORIGINS = [MY_HOST_IP, ]
 
 
 # Application definition
